@@ -1,8 +1,13 @@
 import {Route, Get, Post, Delete, Patch, Example, Body} from 'tsoa';
+import {inject, provideSingleton} from '../ioc';
 import {User, UserCreateRequest, UserUpdateRequest} from '../models/user';
+import {UsersService} from '../services/usersService';
 
 @Route('Users')
+@provideSingleton(UsersController)
 export class UsersController {
+    constructor(@inject(UsersService) private usersService: UsersService) {
+    }
 
     /** Get the current user */
     @Get('Current')
@@ -12,21 +17,13 @@ export class UsersController {
         id: 1,
     })
     public async Current(): Promise<User> {
-        return {
-            createdAt: new Date(),
-            email: 'test',
-            id: 666
-        };
+        return await this.usersService.get(666);
     }
 
     /** Get user by ID */
     @Get('{userId}')
     public async Get(userId: number): Promise<User> {
-        return {
-            createdAt: new Date(),
-            email: 'test2',
-            id: userId
-        };
+        return await this.usersService.get(userId);
     }
 
     /**
@@ -35,11 +32,7 @@ export class UsersController {
      */
     @Post()
     public async Create(@Body() request: UserCreateRequest): Promise<User> {
-        return {
-            createdAt: new Date(),
-            email: request.email,
-            id: 666
-        };
+        return await this.usersService.create(request);
     }
 
     /** Delete a user by ID */
@@ -51,10 +44,6 @@ export class UsersController {
     /** Update a user */
     @Patch()
     public async Update(@Body() request: UserUpdateRequest): Promise<User> {
-        return {
-            createdAt: request.createdAt,
-            email: request.email,
-            id: 1337
-        };
+        return await this.usersService.update(request);
     }
 }

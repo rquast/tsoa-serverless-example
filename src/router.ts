@@ -2,7 +2,9 @@ import * as director from 'director';
 import {RegisterRoutes} from '../_gen/routes/routes';
 import {HttpRequest, HttpResponse, LambdaProxyEvent, LambdaProxyCallback} from './framework';
 
-import './controllers/UsersController'; // reference for dynamic generation
+// reference for dynamic generation
+import './controllers/companiesController';
+import './controllers/usersController';
 
 const router = new director.http.Router();
 

@@ -1,32 +1,24 @@
 import {Company} from '../models/company';
+import {CompaniesService} from '../services/companiesService';
+import {inject, provideSingleton} from '../ioc';
 import {Route, Get} from 'tsoa';
 import {User} from '../models/user';
 
 @Route('Companies')
+@provideSingleton(CompaniesController)
 export class CompaniesController {
+    constructor(@inject(CompaniesService) private companiesService: CompaniesService) {
+    }
+
     /** Get the current account */
     @Get('Current')
     public async current(): Promise<Company> {
-        return {
-            id: 600,
-            name: 'test'
-        };
+        return await this.companiesService.get(600);
     }
 
     /** Get a list of users for the account */
     @Get('Users')
     public async getUsers(): Promise<User[]> {
-        return [
-            {
-                createdAt: new Date(),
-                email: 'test@test.com',
-                id: 1
-            },
-            {
-                createdAt: new Date(),
-                email: 'test2@test2.com',
-                id: 2,
-            }
-        ];
+        return await this.companiesService.getUsers(600);
     }
 }

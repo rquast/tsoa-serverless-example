@@ -9,6 +9,6 @@ export interface UserCreateRequest {
 }
 
 export interface UserUpdateRequest {
-    createdAt?: Date;
+    id: number;
     email: string;
 }

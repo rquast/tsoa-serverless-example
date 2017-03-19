@@ -8,6 +8,7 @@
     "routes": {
         "basePath": "/v1",
         "entryFile": "./src/router.ts",
-        "routesDir": "./_gen/routes"
+        "routesDir": "./_gen/routes",
+        "iocModule": "./src/ioc"
     }
 }
