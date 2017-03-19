@@ -1,4 +1,4 @@
-import './controllers/accountsController';
+import './controllers/companiesController';
 import './controllers/usersController';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';

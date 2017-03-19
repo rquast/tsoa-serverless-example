@@ -1,12 +1,12 @@
-import {Account} from '../models/account';
+import {Company} from '../models/company';
 import {Route, Get} from 'tsoa';
 import {User} from '../models/user';
 
-@Route('Accounts')
-export class AccountsController {
+@Route('Companies')
+export class CompaniesController {
     /** Get the current account */
     @Get('Current')
-    public async current(someFlag: boolean): Promise<Account> {
+    public async current(): Promise<Company> {
         return {
             id: 600,
             name: 'test'

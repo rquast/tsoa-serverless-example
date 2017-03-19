@@ -1,6 +1,6 @@
 import {User} from './user';
 
-export interface Account {
+export interface Company {
     id: number;
     address?: string;
     name: string;
