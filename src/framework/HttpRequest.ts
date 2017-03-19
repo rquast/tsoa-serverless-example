@@ -1,6 +1,7 @@
 import { LambdaProxyEvent } from './LambdaProxyEvent';
 
 export class HttpRequest {
+    public body: any;
     public headers: any;
     public method: string;
     public params: any;
@@ -8,6 +9,7 @@ export class HttpRequest {
     public url: string;
 
     constructor(event: LambdaProxyEvent) {
+        this.body = JSON.parse(event.body);
         this.headers = event.headers;
         this.method = event.httpMethod;
         this.params = event.pathParameters;
