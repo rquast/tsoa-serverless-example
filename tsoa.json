@@ -1,13 +1,13 @@
 {
     "swagger": {
-        "outputDirectory": "./dist",
-        "entryFile": "./src/server.ts",
+        "outputDirectory": "./_gen/swagger",
+        "entryFile": "./src/router.ts",
         "host": "localhost:3000",
         "basePath": "/v1"
     },
     "routes": {
         "basePath": "/v1",
-        "entryFile": "./src/server.ts",
-        "routesDir": "./src"
+        "entryFile": "./src/router.ts",
+        "routesDir": "./_gen/routes"
     }
 }

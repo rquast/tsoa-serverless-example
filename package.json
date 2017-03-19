@@ -3,31 +3,37 @@
   "version": "0.0.1",
   "description": "An example app using tsoa and the serverless framework",
   "scripts": {
-    "start": "npm run build && node ./dist/server.js",
-    "build": "npm run clean && npm run lint && npm run swagger-gen && npm run routes-gen && tsc",
+    "start": "npm run build && sls offline --location .webpack",
+    "debug": "npm run build && bash -c './debug-sls.sh offline --location .webpack'",
+    "build": "npm run clean && npm run lint && npm run swagger-gen && npm run routes-gen && npm run sls-gen",
     "lint": "tslint ./src/**/*.ts",
-    "clean": "rimraf dist",
+    "clean": "rimraf _gen",
     "swagger-gen": "tsoa swagger",
-    "routes-gen": "tsoa routes",
+    "routes-gen": "bash -c 'mkdir -p _gen/routes' && tsoa routes",
+    "sls-gen": "tsc util/serverlessYamlGenerator.ts && node util/serverlessYamlGenerator.js",
     "tsoa": "tsoa"
   },
   "author": "Mike Rosack <mike@rosacksoftwaresolutions.com> (https://www.rosacksoftwaresolutions.com)",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "method-override": "^2.3.6",
-    "tsoa": "^1.0.0"
+    "director": "^1.2.8",
+    "inversify": "^3.1.0",
+    "inversify-binding-decorators": "^3.0.0",
+    "reflect-metadata": "^0.1.10",
+    "source-map-support": "^0.4.13",
+    "tsoa": "^1.1.5"
   },
   "devDependencies": {
-    "@types/body-parser": "0.0.30",
-    "@types/express": "^4.0.30",
-    "@types/method-override": "0.0.27",
-    "@types/node": "^6.0.33",
-    "ncp": "^2.0.0",
-    "rimraf": "^2.5.2",
+    "@types/node": "^7.0.8",
+    "json-loader": "^0.5.4",
+    "rimraf": "^2.6.1",
+    "serverless-offline": "^3.8.3",
+    "serverless-webpack": "^1.0.0-rc.4",
+    "ts-loader": "^2.0.1",
     "tslint": "^4.5.1",
-    "typescript": "^2.0.0"
+    "typescript": "^2.0.0",
+    "webpack": "^2.2.1",
+    "webpack-node-externals": "^1.5.4"
   },
   "repository": {
     "type": "git",
