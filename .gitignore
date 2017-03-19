@@ -5,3 +5,4 @@ typings
 /util/*.js
 /serverless.yml
 /.webpack
+/.serverless

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npm run build && sls offline --location .webpack",
     "debug": "npm run build && bash -c './debug-sls.sh offline --location .webpack'",
+    "deploy-dev": "npm run build && sls deploy -v",
     "build": "npm run clean && npm run lint && npm run swagger-gen && npm run routes-gen && npm run sls-gen",
     "lint": "tslint ./src/**/*.ts",
     "clean": "rimraf _gen",
