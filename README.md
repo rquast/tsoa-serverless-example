@@ -3,6 +3,8 @@
 Integrates the awesome [TSOA framework](https://github.com/lukeautry/tsoa) with Serverless for building sweet APIs in
 Lambda with no cold starts and lots of strongly typed goodness!
 
+<https://rosacksoftwaresolutions.com/2017/03/20/serverless-monolithic-apis-and-tsoa/>
+
 ## Run Locally
 
 ```npm run start``` - This runs the TSOA pipeline, then builds the typescript using [Serverless Webpack](https://github.com/elastic-coders/serverless-webpack) and serves it using [Serverless Offline](https://github.com/dherault/serverless-offline)!
@@ -15,4 +17,4 @@ Lambda with no cold starts and lots of strongly typed goodness!
 
 ## Swagger UI
 
-I don't have Swagger UI set up in the project, mostly because I really don't want to handle serving real HTML/JS assets (at least for now).  If you want to play around with your API once you've got it up and running locally, just go to <http://petstore.swagger.io?url=http://localhost:3000/swagger.json>.
+I don't have Swagger UI set up in the project, mostly because I really don't want to handle serving real HTML/JS assets (at least for now).  If you want to play around with your API once you've got it up and running locally, just go to <http://petstore.swagger.io?url=http://localhost:3000/v1/swagger.json>.

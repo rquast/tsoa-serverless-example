@@ -59,8 +59,12 @@ custom:
 #    - exclude-me-dir/**
 
 functions:
-  # Serverless' include functionality doesn't seem to work here, it seems to only import strings :(
-  INSERT_TSOA_FUNCTIONS_HERE
+  router:
+    handler: router.handler
+    events:
+      - http:
+          path: "{proxy+}"
+          method: any
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
