@@ -1,4 +1,5 @@
 import * as director from 'director';
+import * as Route from 'route-parser';
 import {RegisterRoutes} from '../_gen/routes/routes';
 import {HttpRequest, HttpResponse, LambdaProxyEvent, LambdaProxyCallback} from './framework';
 
@@ -15,7 +16,9 @@ router.get('/v1/swagger.json', function(this: DirectorThis) {
 
 function methodHandler(method: string) {
   return function(route: string, exec: (request: HttpRequest, response: HttpResponse, next: any) => void) {
+    const routeData = new Route(route);
     router[method](route, function(this: DirectorThis) {
+      Object.assign(this.req.params, routeData.match('/' + this.req.params.proxy));
       exec(this.req, this.res, (err) => {
         this.res.json({message: 'There was an error procesing your request.', error: err});
         this.res.status(500);
