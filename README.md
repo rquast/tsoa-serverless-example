@@ -7,13 +7,15 @@ Lambda with no cold starts and lots of strongly typed goodness!
 
 ## Run Locally
 
-```npm run start``` - This runs the TSOA pipeline, then builds the typescript using [Serverless Webpack](https://github.com/elastic-coders/serverless-webpack) and serves it using [Serverless Offline](https://github.com/dherault/serverless-offline)!
+Make sure you have Serverless installed globally (`npm install -g serverless`) and install the dependencies ([yarn](https://yarnpkg.com) is preferred), then you can:
 
-```npm run debug``` - Same as start, but launches with the debugger available for connection on port 5858.  There's a launch.json for VSCode available that should allow you to just connect.
+`npm run start` - This runs the TSOA pipeline, then builds the typescript using [Serverless Webpack](https://github.com/elastic-coders/serverless-webpack) and serves it using [Serverless Offline](https://github.com/dherault/serverless-offline)!
+
+`npm run debug` - Same as start, but launches with the debugger available for connection on port 5858.  There's a launch.json for VSCode available that should allow you to just connect.
 
 ## Deploy to AWS
 
-```npm run deploy-dev``` - Deploys everything out to AWS to play around with.  Obviously, this may cost you money.
+`npm run deploy-dev` - Deploys everything out to AWS to play around with.  Obviously, this may cost you money.
 
 ## Swagger UI
 

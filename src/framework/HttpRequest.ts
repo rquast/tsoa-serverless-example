@@ -9,7 +9,13 @@ export class HttpRequest {
     public url: string;
 
     constructor(event: LambdaProxyEvent) {
-        this.body = JSON.parse(event.body);
+        // I'm probably just doing something wrong, but I swear the body isn't a consistent type...
+        if (typeof event.body === 'string') {
+            this.body = JSON.parse(event.body as string);
+        } else {
+            this.body = event.body;
+        }
+
         this.headers = event.headers;
         this.method = event.httpMethod;
         this.params = event.pathParameters;
