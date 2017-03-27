@@ -15,7 +15,8 @@ Make sure you have Serverless installed globally (`npm install -g serverless`) a
 
 ## Deploy to AWS
 
-`npm run deploy-dev` - Deploys everything out to AWS to play around with.  Obviously, this may cost you money.
+`npm run deploy-dev` - Deploys everything out to AWS to play around with.  Obviously, **this may cost you money**.  You'll need to run this twice if you want to play with the
+swagger - `npm run fix-swagger` will tweak the swagger.json appropriately, but only after it's been deployed once and we can get the ServiceEndpoint from the CloudFormation outputs.  (I'd love a better way to do this if anyone has any ideas.)
 
 ## Swagger UI
 

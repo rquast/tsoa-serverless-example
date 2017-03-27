@@ -5,11 +5,12 @@
   "scripts": {
     "start": "npm run build && sls offline --location .webpack",
     "debug": "npm run build && bash -c './debug-sls.sh offline --location .webpack'",
-    "deploy-dev": "npm run build && sls deploy -v",
+    "deploy-dev": "npm run build && npm run fix-swagger && sls deploy -v",
     "build": "npm run clean && npm run lint && npm run swagger-gen && npm run routes-gen",
     "lint": "tslint ./src/**/*.ts",
     "clean": "rimraf _gen",
     "swagger-gen": "tsoa swagger",
+    "fix-swagger": "bash -c './scripts.sh fix-swagger'",
     "routes-gen": "bash -c 'mkdir -p _gen/routes' && tsoa routes",
     "tsoa": "tsoa"
   },
@@ -22,10 +23,12 @@
     "reflect-metadata": "^0.1.10",
     "route-parser": "^0.0.5",
     "source-map-support": "^0.4.13",
-    "tsoa": "^1.1.5"
+    "tsoa": "^1.1.5",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "@types/node": "^7.0.8",
+    "@types/winston": "^2.3.0",
     "json-loader": "^0.5.4",
     "rimraf": "^2.6.1",
     "serverless-offline": "^3.8.3",
