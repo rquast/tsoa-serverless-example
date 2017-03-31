@@ -31,7 +31,7 @@
     "@types/winston": "^2.3.0",
     "json-loader": "^0.5.4",
     "rimraf": "^2.6.1",
-    "serverless-offline": "^3.8.3",
+    "serverless-offline": "^3.13.1",
     "serverless-webpack": "^1.0.0-rc.4",
     "ts-loader": "^2.0.1",
     "tslint": "^4.5.1",
