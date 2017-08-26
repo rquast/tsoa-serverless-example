@@ -1,12 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
 var nodeExternals = require('webpack-node-externals');
+var _ = require('lodash');
+const slsw = require('serverless-webpack');
 
 module.exports = {  
-  entry: {
-    addlIncludes: './addlIncludes.ts',
-    router: './src/router.ts'
-  },
+  entry: _.assign({
+    addlIncludes: './addlIncludes.ts'
+  }, slsw.lib.entries),
   target: 'node',
   devtool: 'source-map',
   module: {
@@ -16,7 +17,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json', '']
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json']
   },
   output: {
     libraryTarget: 'commonjs',

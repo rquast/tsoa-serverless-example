@@ -60,12 +60,11 @@ custom:
 
 functions:
   router:
-    handler: router.handler
+    handler: src/router.handler
     events:
       - http:
           path: "{proxy+}"
           method: any
-          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

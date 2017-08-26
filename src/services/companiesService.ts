@@ -9,7 +9,7 @@ export class CompaniesService {
           id,
           name: 'test'
       };
-    };
+    }
 
     public async getUsers(id: number): Promise<User[]> {
       return [

@@ -9,7 +9,7 @@ export class UsersService {
             email: 'test',
             id: id
         };
-    };
+    }
 
     public async create(request: UserCreateRequest): Promise<User> {
       return {

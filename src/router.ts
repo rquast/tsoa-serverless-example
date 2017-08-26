@@ -1,7 +1,6 @@
-import * as director from 'director';
-import * as Route from 'route-parser';
-import {RegisterRoutes} from '../_gen/routes/routes';
-import {ErrorResponse, HttpRequest, HttpResponse, HttpResponseError, LambdaProxyEvent, LambdaProxyCallback} from './framework';
+import { Router } from 'express';
+import { RegisterRoutes } from '../_gen/routes/routes';
+import { ErrorResponse, HttpRequest, HttpResponse, HttpResponseError, LambdaProxyEvent, LambdaProxyCallback } from './framework';
 import * as winston from 'winston';
 
 // reference for dynamic generation
@@ -16,39 +15,33 @@ winston.configure({
   ]
 });
 
-const router = new director.http.Router().configure({
-  strict: false
-});
+const router = new Router();
 
-router.get('/v1/swagger.json', function(this: DirectorThis) {
-  this.res.json(require('../_gen/swagger/swagger.json'));
-  this.res.status(200);
+router.get('/v1/swagger.json', (req, res) => {
+  res.status(200).json(require('../_gen/swagger/swagger.json'));
 });
 
 type middlewareExec = ((request: HttpRequest, response: HttpResponse, next: any) => void);
 
 function methodHandler(method: string) {
-  return function(route: string, ...routeExecs: middlewareExec[]) {
-    const routeData = new Route(route);
-    router[method](route, function(this: DirectorThis) {
+  return function (route: string, ...routeExecs: middlewareExec[]) {
+    router[method](route, (req, res) => {
       winston.info(`Found route ${route}`);
-      Object.assign(this.req.params, routeData.match('/' + this.req.params.proxy));
 
       const runNext = (runExecs: middlewareExec[]) => {
         const curExec: middlewareExec = runExecs[0];
 
-        curExec(this.req, this.res, (err) => {
+        curExec(req, res, (err) => {
           if (err) {
             if (err instanceof HttpResponseError) {
-              this.res.json(new ErrorResponse(err.message));
-              this.res.status(err.statusCode);
+              res.status(err.statusCode).json(new ErrorResponse(err.message));
               return;
             }
 
             winston.error(`Unhandled Exception: ${JSON.stringify(err.stack || err)}`);
 
-            this.res.json(new ErrorResponse('There was an error procesing your request.'));
-            this.res.status(500);
+
+            res.status(500).json(new ErrorResponse('There was an error procesing your request.'));
           } else if (runExecs.length > 1) {
             runNext(runExecs.slice(1));
           }
@@ -65,6 +58,7 @@ const mockApp = {
   get: methodHandler('get'),
   patch: methodHandler('patch'),
   post: methodHandler('post'),
+  put: methodHandler('put')
 };
 
 RegisterRoutes(mockApp);
@@ -72,21 +66,14 @@ RegisterRoutes(mockApp);
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
   winston.info(`handling ${event.httpMethod} ${event.path}`);
 
+  const response = new HttpResponse(callback);
+
   if (event.httpMethod.toLowerCase() === 'options') {
-    return callback(null, {
-      statusCode: 200
+    response.status(200).end();
+  } else {
+    router.handle(new HttpRequest(event), response, err => {
+      winston.info(`404 for ${event.httpMethod} ${event.path}`);
+      response.status(404).json(new ErrorResponse('Not Found'));
     });
   }
-
-  const response = new HttpResponse(callback);
-  router.dispatch(new HttpRequest(event), response, err => {
-    winston.info(`404 for ${event.httpMethod} ${event.path}`);
-    response.json(new ErrorResponse('Not Found'));
-    response.status(404);
-  });
-};
-
-interface DirectorThis {
-  req: HttpRequest;
-  res: HttpResponse;
-};
+}
