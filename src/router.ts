@@ -15,7 +15,7 @@ winston.configure({
   ]
 });
 
-const router = new Router();
+const router = Router();
 
 router.get('/v1/swagger.json', (req, res) => {
   res.status(200).json(require('../_gen/swagger/swagger.json'));
@@ -71,7 +71,7 @@ export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyC
   if (event.httpMethod.toLowerCase() === 'options') {
     response.status(200).end();
   } else {
-    router.handle(new HttpRequest(event), response, err => {
+    (router as any).handle(new HttpRequest(event), response, err => {
       winston.info(`404 for ${event.httpMethod} ${event.path}`);
       response.status(404).json(new ErrorResponse('Not Found'));
     });
