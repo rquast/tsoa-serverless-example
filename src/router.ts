@@ -17,6 +17,8 @@ import { buildProviderModule } from 'inversify-binding-decorators';
 import './controllers/companiesController';
 import './controllers/usersController';
 import { iocContainer } from './ioc';
+// must run buildProviderModule after all imports that use binding decorators have been imported
+iocContainer.load(buildProviderModule());
 
 const swaggerJson = require('../_gen/swagger/swagger.json');
 
@@ -30,7 +32,6 @@ winston.configure({
 const router = Router();
 
 router.get('/v1/swagger.json', (req, res) => {
-    // TODO: needs fixing
     res.json(swaggerJson);
 });
 
@@ -74,7 +75,6 @@ const mockApp = {
 };
 
 RegisterRoutes(<express.Express><unknown>mockApp);
-iocContainer.load(buildProviderModule());
 
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
     winston.info(`handling ${event.httpMethod} ${event.path}`);

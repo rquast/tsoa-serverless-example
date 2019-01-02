@@ -1,16 +1,7 @@
-import { Container, inject, interfaces } from 'inversify';
+import { Container, inject } from 'inversify';
 import { autoProvide, fluentProvide } from 'inversify-binding-decorators';
 
 const iocContainer = new Container();
-
-const provideNamed = (
-    identifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>,
-    name: string
-) => {
-    return fluentProvide(identifier)
-        .whenTargetNamed(name)
-        .done();
-};
 
 const provideSingleton = (identifier: any) => {
     return fluentProvide(identifier)
@@ -18,4 +9,4 @@ const provideSingleton = (identifier: any) => {
         .done();
 };
 
-export {iocContainer, autoProvide, provideSingleton, provideNamed, inject};
+export {iocContainer, autoProvide, provideSingleton, inject};
