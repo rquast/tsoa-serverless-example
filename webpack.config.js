@@ -13,8 +13,7 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      { test: /\.ts(x?)$/, loader: 'ts-loader' },
-      { test: /\.json$/, loader: 'json-loader' }
+      { test: /\.ts(x?)$/, loader: 'ts-loader' }
     ],
   },
   resolve: {

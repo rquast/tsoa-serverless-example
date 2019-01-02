@@ -7,7 +7,7 @@
     "debug": "npm run build && bash -c './debug-sls.sh offline --location .webpack/service'",
     "deploy-dev": "npm run build && npm run fix-swagger && sls deploy -v",
     "build": "npm run clean && npm run routes-gen && npm run lint && npm run swagger-gen ",
-    "lint": "tslint --type-check --project tsconfig.json ./src/**/*.ts",
+    "lint": "tslint ./src/**/*.ts",
     "clean": "rimraf _gen",
     "swagger-gen": "tsoa swagger",
     "fix-swagger": "bash -c './scripts.sh fix-swagger'",

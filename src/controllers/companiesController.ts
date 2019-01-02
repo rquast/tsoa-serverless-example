@@ -1,8 +1,8 @@
-import {Company} from '../models/company';
-import {CompaniesService} from '../services/companiesService';
-import {inject, provideSingleton} from '../ioc';
-import {Route, Get} from 'tsoa';
-import {User} from '../models/user';
+import { Get, Route } from 'tsoa';
+import { inject, provideSingleton } from '../ioc';
+import { Company } from '../models/company';
+import { User } from '../models/user';
+import { CompaniesService } from '../services/companiesService';
 
 @Route('Companies')
 @provideSingleton(CompaniesController)

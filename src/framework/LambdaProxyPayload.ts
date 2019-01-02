@@ -1,5 +1,5 @@
 export interface LambdaProxyPayload {
-  statusCode: number;
-  headers?: any;
-  body?: string;
+    statusCode: number;
+    headers?: any;
+    body?: string;
 }

@@ -1,11 +1,14 @@
 {
+  "extends": "tslint:recommended",
   "rules": {
     "class-name": true,
     "comment-format": [
       true,
       "check-space"
     ],
-    "curly": true,
+    "align": [true, "parameters", "arguments", "statements"],
+    "curly": false,
+    "encoding": true,
     "eofline": true,
     "indent": [
       true,
@@ -25,12 +28,14 @@
       "static-before-instance",
       "variables-before-functions"
     ],
+    "linebreak-style": false,
+    "newline-before-return": false,
     "no-angle-bracket-type-assertion": false,
     "no-any": false,
     "no-arg": true,
     "no-bitwise": false,
     "no-conditional-assignment": true,
-    "no-consecutive-blank-lines": false,
+    "no-consecutive-blank-lines": true,
     "no-console": [
       true,
       "log",
@@ -56,14 +61,13 @@
       "single"
     ],
     "no-string-literal": false,
+    "no-empty-line-after-opening-brace": false,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": false,
-    "object-literal-sort-keys": true,
+    "object-literal-sort-keys": false,
     "one-line": [
       true,
       "check-open-brace",
@@ -79,6 +83,9 @@
       true,
       "allow-null-check"
     ],
+    "import-spacing": true,
+    "space-within-parens": true,
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "typedef-whitespace": [
       true,
       {
@@ -108,7 +115,8 @@
       "check-decl",
       "check-operator",
       "check-separator",
-      "check-type"
+      "check-type",
+      "check-module"
     ]
   }
 }

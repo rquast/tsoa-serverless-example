@@ -1,7 +1,7 @@
-import {Route, Get, Post, Delete, Patch, Example, Body} from 'tsoa';
-import {inject, provideSingleton} from '../ioc';
-import {User, UserCreateRequest, UserUpdateRequest} from '../models/user';
-import {UsersService} from '../services/usersService';
+import { Body, Delete, Example, Get, Patch, Post, Route } from 'tsoa';
+import { inject, provideSingleton } from '../ioc';
+import { User, UserCreateRequest, UserUpdateRequest } from '../models/user';
+import { UsersService } from '../services/usersService';
 
 @Route('Users')
 @provideSingleton(UsersController)
@@ -14,7 +14,7 @@ export class UsersController {
     @Example<User>({
         createdAt: new Date(),
         email: 'test@test.com',
-        id: 1,
+        id: 1
     })
     public async Current(): Promise<User> {
         return await this.usersService.get(666);

@@ -1,5 +1,5 @@
-import {provideSingleton} from '../ioc';
-import {User, UserCreateRequest, UserUpdateRequest} from '../models/user';
+import { provideSingleton } from '../ioc';
+import { User, UserCreateRequest, UserUpdateRequest } from '../models/user';
 
 @provideSingleton(UsersService)
 export class UsersService {
@@ -7,23 +7,23 @@ export class UsersService {
         return {
             createdAt: new Date(),
             email: 'test',
-            id: id
+            id
         };
     }
 
     public async create(request: UserCreateRequest): Promise<User> {
-      return {
-        createdAt: new Date(),
-        email: request.email,
-        id: 666
-      };
+        return {
+            createdAt: new Date(),
+            email: request.email,
+            id: 666
+        };
     }
 
     public async update(request: UserUpdateRequest): Promise<User> {
-      return {
-        createdAt: new Date(),
-        email: request.email,
-        id: request.id
-      };
+        return {
+            createdAt: new Date(),
+            email: request.email,
+            id: request.id
+        };
     }
 }
