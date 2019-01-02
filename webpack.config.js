@@ -9,9 +9,10 @@ module.exports = {
     addlIncludes: './addlIncludes.ts'
   }, slsw.lib.entries),
   target: 'node',
+  mode: 'development',
   devtool: 'source-map',
   module: {
-    loaders: [
+    rules: [
       { test: /\.ts(x?)$/, loader: 'ts-loader' },
       { test: /\.json$/, loader: 'json-loader' }
     ],
@@ -30,5 +31,11 @@ module.exports = {
     new webpack.IgnorePlugin(/\.(css|less)$/),
     new webpack.BannerPlugin({ banner: 'require("reflect-metadata");', raw: true, entryOnly: false }),
     new webpack.BannerPlugin({ banner: 'require("source-map-support").install();', raw: true, entryOnly: false })
-  ]
+  ],
+  optimization: {
+    minimize: false
+  },
+  performance: {
+    hints: false
+  }
 };

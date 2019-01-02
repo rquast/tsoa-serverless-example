@@ -1,4 +1,5 @@
 import { Router } from 'express';
+// @ts-ignore
 import { RegisterRoutes } from '../_gen/routes/routes';
 import { ErrorResponse, HttpRequest, HttpResponse, HttpResponseError, LambdaProxyEvent, LambdaProxyCallback } from './framework';
 import * as winston from 'winston';
@@ -6,10 +7,15 @@ import * as winston from 'winston';
 // reference for dynamic generation
 import './controllers/companiesController';
 import './controllers/usersController';
+import * as express from 'express';
+import {buildProviderModule} from 'inversify-binding-decorators';
+import {iocContainer} from './ioc';
+const path = require('path');
+const options = {root: path.join(__dirname, '../_gen')};
 
 winston.configure({
   exitOnError: false,
-  handleExceptions: true,
+  // handleExceptions: true,
   transports: [
     new winston.transports.Console()
   ]
@@ -18,7 +24,7 @@ winston.configure({
 const router = Router();
 
 router.get('/v1/swagger.json', (req, res) => {
-  res.status(200).json(require('../_gen/swagger/swagger.json'));
+    res.sendFile('./swagger/swagger.json', options);
 });
 
 type middlewareExec = ((request: HttpRequest, response: HttpResponse, next: any) => void);
@@ -41,7 +47,7 @@ function methodHandler(method: string) {
             winston.error(`Unhandled Exception: ${JSON.stringify(err.stack || err)}`);
 
 
-            res.status(500).json(new ErrorResponse('There was an error procesing your request.'));
+            res.status(500).json(new ErrorResponse('There was an error processing your request.'));
           } else if (runExecs.length > 1) {
             runNext(runExecs.slice(1));
           }
@@ -54,14 +60,15 @@ function methodHandler(method: string) {
 }
 
 const mockApp = {
-  delete: methodHandler('delete'),
-  get: methodHandler('get'),
-  patch: methodHandler('patch'),
-  post: methodHandler('post'),
-  put: methodHandler('put')
+    delete: methodHandler('delete'),
+    get: methodHandler('get'),
+    patch: methodHandler('patch'),
+    post: methodHandler('post'),
+    put: methodHandler('put')
 };
 
-RegisterRoutes(mockApp);
+RegisterRoutes(<express.Express><unknown>mockApp);
+iocContainer.load(buildProviderModule());
 
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
   winston.info(`handling ${event.httpMethod} ${event.path}`);
@@ -77,3 +84,4 @@ export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyC
     });
   }
 }
+

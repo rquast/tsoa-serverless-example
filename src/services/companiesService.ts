@@ -1,6 +1,6 @@
 import {provideSingleton} from '../ioc';
-import {Company} from '../models/Company';
-import {User} from '../models/User';
+import {Company} from '../models/company';
+import {User} from '../models/user';
 
 @provideSingleton(CompaniesService)
 export class CompaniesService {
