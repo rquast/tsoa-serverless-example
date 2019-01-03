@@ -12,7 +12,6 @@ import {
 } from './framework';
 
 // reference for dynamic generation
-import * as express from 'express';
 import { buildProviderModule } from 'inversify-binding-decorators';
 import './controllers/companiesController';
 import './controllers/usersController';
@@ -74,7 +73,7 @@ const mockApp = {
     put: methodHandler('put')
 };
 
-RegisterRoutes(<express.Express><unknown>mockApp);
+RegisterRoutes(mockApp);
 
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
     winston.info(`handling ${event.httpMethod} ${event.path}`);
