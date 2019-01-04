@@ -9,4 +9,4 @@ const provideSingleton = (identifier: any) => {
         .done();
 };
 
-export {iocContainer, autoProvide, provideSingleton, inject};
+export { iocContainer, autoProvide, provideSingleton, inject };

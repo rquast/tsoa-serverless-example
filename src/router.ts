@@ -73,7 +73,7 @@ const mockApp = {
     put: methodHandler('put')
 };
 
-RegisterRoutes(mockApp);
+RegisterRoutes(<any>mockApp);
 
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
     winston.info(`handling ${event.httpMethod} ${event.path}`);
